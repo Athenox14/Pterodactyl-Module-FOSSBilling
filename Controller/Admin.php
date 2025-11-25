@@ -25,21 +25,15 @@ class Admin implements \FOSSBilling\InjectionAwareInterface
         return $this->di;
     }
 
-    public function register(\FOSSBilling\Events $hooks): void
+    public function register(\Box_App &$app): void
     {
-        $hooks->on(
-            'system.admin.controller',
-            'get:/servicepterodactyl/settings',
-            [$this, 'get_settings'],
-            [],
-            'servicepterodactyl'
-        );
+        $app->get('/servicepterodactyl/settings', 'get_settings', [], static::class);
     }
 
-    public function get_settings(\FOSSBilling\View $view): string
+    public function get_settings(\Box_App $app): string
     {
-        $api = $this->di['api']('admin');
-        
+        $this->di['is_admin_logged'];
+
         // Get current settings
         $systemService = $this->di['mod_service']('system');
         $settings = [
@@ -52,7 +46,7 @@ class Admin implements \FOSSBilling\InjectionAwareInterface
             'default_disk' => $systemService->getParamValue('servicepterodactyl_default_disk', 1024),
             'default_cpu' => $systemService->getParamValue('servicepterodactyl_default_cpu', 100),
         ];
-        
-        return $view->render('mod_servicepterodactyl_settings', ['settings' => $settings]);
+
+        return $app->render('mod_servicepterodactyl_settings', ['settings' => $settings]);
     }
 }

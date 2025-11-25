@@ -11,7 +11,7 @@
 
 namespace Box\Mod\Servicepterodactyl\Controller;
 
-class Admin implements \FOSSBilling\InjectionAwareInterface
+class Client implements \FOSSBilling\InjectionAwareInterface
 {
     protected $di;
 
@@ -24,31 +24,27 @@ class Admin implements \FOSSBilling\InjectionAwareInterface
     {
         return $this->di;
     }
-    
-    public function register(\FOSSBilling\Events $hooks): void
+
+    public function register(\Box_App &$app): void
     {
-        $hooks->on(
-            'system.client.controller',
-            'get:/servicepterodactyl/:id',
-            [$this, 'get_manage'],
-            ['id' => '[0-9]+'],
-            'servicepterodactyl'
-        );
+        $app->get('/servicepterodactyl/:id', 'get_manage', ['id' => '[0-9]+'], static::class);
     }
 
-    public function get_manage(\FOSSBilling\View $view, int $id): string
+    public function get_manage(\Box_App $app, int $id): string
     {
-        $api = $this->di['api']('client');
+        $this->di['is_client_logged'];
+
+        $api = $this->di['api_client'];
         $data = $api->order_get(['id' => $id]);
         if ($data['service_type'] !== 'servicepterodactyl') {
             throw new \FOSSBilling\Exception('Invalid order type');
         }
 
         $service = $api->servicepterodactyl_get(['order_id' => $id]);
-        
-        return $view->render('mod_servicepterodactyl_manage', [
+
+        return $app->render('mod_servicepterodactyl_manage', [
             'order' => $data,
-            'service' => $service
+            'service' => $service,
         ]);
     }
 }
