@@ -1,6 +1,6 @@
 {
   "id": "servicepterodactyl",
-  "type": "service",
+  "type": "mod",
   "name": "Pterodactyl",
   "description": "Pterodactyl game server hosting service module",
   "icon_url": "icon.png",
