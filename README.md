@@ -18,15 +18,55 @@ A free and open-source module that connects **Pterodactyl** with **FOSSBilling**
 
 ## ⚙️ Installation
 
-1. **Download the module** or clone the repository:
+### Option 1: Download from Releases (Recommended)
+
+1. **Download** the latest release ZIP from [GitHub Releases](https://github.com/Athenox14/Pterodactyl-Module-FOSSBilling/releases)
+2. **Extract** the ZIP file into your FOSSBilling `/modules/` directory
+3. The folder should be named `Servicepterodactyl` (this is already correct in release ZIPs)
+4. **Activate** the module from FOSSBilling admin panel → Extensions → Overview
+5. **Configure** your Pterodactyl credentials in the module settings
+
+### Option 2: Manual Installation
+
+1. **Download** or clone the repository:
 
    ```bash
    git clone https://github.com/Athenox14/Pterodactyl-Module-FOSSBilling.git
    ```
-2. **Upload the module** to your FOSSBilling `/modules/` directory.
-3. **Activate the module** from the FOSSBilling admin panel.
-4. **Configure your Pterodactyl credentials** (API URL and keys) in the module settings.
-5. **Create products** in FOSSBilling linked to your Pterodactyl servers and plans.
+
+2. **Upload** the module contents to your FOSSBilling `/modules/` directory
+
+3. **Rename the folder** to `Servicepterodactyl`:
+
+   > ⚠️ **Important**: FOSSBilling requires service modules to have the `Service` prefix. The folder **must** be named `Servicepterodactyl` (not `Pterodactyl` or `Pterodactyl-Module-FOSSBilling-main`).
+
+   ```bash
+   mv /path/to/fossbilling/modules/Pterodactyl-Module-FOSSBilling /path/to/fossbilling/modules/Servicepterodactyl
+   ```
+
+4. **Activate** the module from FOSSBilling admin panel → Extensions → Overview → Pterodactyl
+
+5. **Configure** your Pterodactyl credentials (API URL and Application API key) in the module settings
+
+## 🔧 Configuration
+
+After activation, configure the module in FOSSBilling:
+
+1. Go to **Extensions** → **Pterodactyl Settings**
+2. Enter your **Pterodactyl Panel URL** (e.g., `https://panel.example.com`)
+3. Enter your **Application API Key** (generate one in Pterodactyl: Admin → Application API)
+4. Configure default values for nodes, eggs, and resource limits
+
+### Creating a Product
+
+1. Go to **Products** → **New Product**
+2. Select **Pterodactyl** as the service type
+3. Configure the server specifications:
+   - Node ID
+   - Egg ID
+   - Memory, CPU, Disk limits
+   - Docker image (optional)
+4. Set your pricing and save
 
 ## 🛠 Roadmap
 
